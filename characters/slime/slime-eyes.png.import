@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/slime_hurt_eyes.png-711256b4a2a47dcea723d274f00b4628.stex"
+path="res://.import/slime-eyes.png-45a093f75cce2db8f5200bf36328cf46.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://characters/slime/slime_hurt_eyes.png"
-dest_files=[ "res://.import/slime_hurt_eyes.png-711256b4a2a47dcea723d274f00b4628.stex" ]
+source_file="res://characters/slime/slime-eyes.png"
+dest_files=[ "res://.import/slime-eyes.png-45a093f75cce2db8f5200bf36328cf46.stex" ]
 
 [params]
 

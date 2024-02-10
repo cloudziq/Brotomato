@@ -8,12 +8,12 @@ radius = 19.0263
 
 [node name="Tree" type="StaticBody2D"]
 collision_layer = 256
-collision_mask = 21
+collision_mask = 5
 
 [node name="GroundShadow" type="Sprite" parent="."]
 modulate = Color( 0.105882, 0.109804, 0.117647, 0.47451 )
-position = Vector2( 38.1923, 3 )
-scale = Vector2( 0.947802, 0.538462 )
+position = Vector2( 18.0962, -3 )
+scale = Vector2( 0.783425, 0.423077 )
 texture = ExtResource( 2 )
 
 [node name="PineTree" type="Sprite" parent="."]

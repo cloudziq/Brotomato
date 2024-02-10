@@ -1,4 +1,4 @@
-# Dziq 2023 - 2023
+# Dziq 2024 - 2028
 # v0.-1
 
 
@@ -8,7 +8,7 @@
 extends Node2D
 
 
-export var rec : bool
+export var small_screen : bool
 
 
 
@@ -17,6 +17,8 @@ export var rec : bool
 func _ready() -> void:
 	randomize()
 #	G.load_config()
+	var LEVEL  = preload("res://Level.tscn").instance()
+	add_child(LEVEL)
 	window_prepare()
 
 
@@ -28,8 +30,8 @@ func window_prepare() -> void:
 	var display_size = OS.get_screen_size()
 	var window_size  = G.window
 
-	if rec == true:
-		window_size *= Vector2(1.16, 1.16)
+	if small_screen == true:
+		window_size *= Vector2(.5, .5)
 	else:
 		window_size *= Vector2(4, 4)
 

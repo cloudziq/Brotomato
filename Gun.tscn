@@ -4,7 +4,7 @@
 [ext_resource path="res://Gun.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 1569.52
+radius = 2222.0
 
 [node name="Gun" type="Area2D"]
 scale = Vector2( 0.6, 0.6 )

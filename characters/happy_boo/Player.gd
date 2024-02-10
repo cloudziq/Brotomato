@@ -1,22 +1,31 @@
 extends KinematicBody2D
 
 
-export var SPEED   := 260
-export var HEALTH  := 100
-export var STAMINA := 20
-
-
-signal player_death
-
-
-var velocity : Vector2
+export var HEALTH  := 100.0
+export var SPEED   := 220.0
+export var ATTACK  := 2.0
+export var STAMINA := 8.0
+export var MELEE   := 12.0
+export var INT     := 10.0
+export var LUCK    := 4.0
 
 
 
+signal health_depleted
+
+
+var velocity   := Vector2.ZERO
+var level      := 0
+var experience  = 0.0
+var exp_needed  = 10.0
+
+
+onready var level_up_sound := $"../../Sounds/LevelUp"
 
 
 
 func _ready() -> void:
+	level_up()
 	play_idle_animation()
 
 
@@ -28,21 +37,83 @@ func _physics_process(delta: float) -> void:
 	var direction  = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity       = direction * SPEED
 	velocity       = move_and_slide(velocity)
-	$body/torso/face.rotation_degrees += delta
+
+	$body/torso/face.rotation_degrees += 2 * delta
 
 	for body in $"%hurtbox".get_overlapping_bodies():
-		HEALTH -= body.MELEE * delta
-		player_death.emit()
-		print(HEALTH)
+		melee_action(body, delta)
+
+	if experience >= exp_needed:
+		level_up()
 
 
 
 
 
 
-func play_idle_animation():
+func melee_action(body:Node2D, delta:float) -> void:
+		HEALTH -= max(0.2, body.MELEE / STAMINA * delta * 100)
+		body.take_damage(max(0.2, (MELEE / body.STAMINA) * delta * 100))
+		body.pushback(true)
+
+		if HEALTH <= 0:
+			HEALTH = 100
+			$"%HealthBar".value  = HEALTH
+			emit_signal("health_depleted")
+		$"%HealthBar".value  = HEALTH
+
+
+
+
+
+func level_up(a:=0.0) -> void:
+	if level != 0:
+		a    = INT * .1
+		exp_needed += int(experience * 1.25)
+
+		HEALTH  += a
+		SPEED   += a
+		ATTACK  += a
+		STAMINA += a
+		MELEE   += a
+		INT     += a
+		LUCK    += a
+
+		var path     = "res://data/sounds/level_up.wav"
+		level_up_sound.stream  = load(path)
+		level_up_sound.pitch_scale  = 1 + rand_range(-.1, .1)
+		level_up_sound.play()
+
+	level += 1
+	exp_print(true, a)
+
+
+
+
+
+
+func exp_print(lv:=false, add:=0.0) -> void:
+	if lv:
+		print("               CURRENT LEVEL: "+str(level))
+		print("               add_value    : "+str(add))
+		print("HEALTH: "+str(HEALTH))
+		print("SPEED: "+str(SPEED))
+		print("ATTACK: "+str(ATTACK))
+		print("STAMINA: "+str(STAMINA))
+		print("MELEE: "+str(MELEE))
+		print("INT: "+str(INT))
+		print("LUCK: "+str(LUCK))
+
+	print("exp: "+str(experience)+"/"+str(exp_needed))
+
+
+
+
+
+
+func play_idle_animation() -> void:
 	$"%AnimPlayer".play("idle")
 
 
-func play_walk_animation():
+func play_walk_animation() -> void:
 	$"%AnimPlayer".play("walk")

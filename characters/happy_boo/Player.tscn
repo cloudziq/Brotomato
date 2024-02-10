@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://characters/happy_boo/Player.gd" type="Script" id=1]
 [ext_resource path="res://characters/happy_boo/square_upper_leg.png" type="Texture" id=2]
@@ -363,12 +363,30 @@ height = 12.0
 radius = 44.0
 height = 0.0
 
-[node name="Player" type="KinematicBody2D"]
-scale = Vector2( 0.5, 0.5 )
-script = ExtResource( 1 )
+[sub_resource type="DynamicFont" id=8]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.211765, 0.737255, 0.168627, 1 )
+skew = Vector2( 0.2, 0 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0, 0, 0, 1 )
+skew = Vector2( 0.2, 0 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_size = 2
+
+[node name="Player" type="KinematicBody2D" groups=["Player"]]
+scale = Vector2( 0.5, 0.5 )
+collision_mask = 2048
+collision/safe_margin = 0.2
+script = ExtResource( 1 )
 
 [node name="AnimPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
@@ -432,3 +450,15 @@ texture = ExtResource( 5 )
 texture = ExtResource( 6 )
 
 [node name="Gun" parent="." instance=ExtResource( 7 )]
+position = Vector2( -2, 0 )
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+margin_left = -50.0
+margin_top = -118.0
+margin_right = 50.0
+margin_bottom = -113.0
+custom_fonts/font = SubResource( 8 )
+custom_styles/fg = SubResource( 7 )
+custom_styles/bg = SubResource( 9 )
+value = 44.0

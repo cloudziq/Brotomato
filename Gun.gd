@@ -27,6 +27,8 @@ func shoot() -> void:
 	var bullet = BULLET.instance()
 	bullet.global_position  = $"%Muzzle".global_position
 	bullet.global_rotation  = $"%Muzzle".global_rotation
+	bullet.DAMAGE          += $"../../Player".ATTACK
+	bullet.SPEED           += $"../../Player".SPEED * .1
 	$"/root/SYST/Level".add_child(bullet)
 
 

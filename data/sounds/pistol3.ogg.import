@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/pistol3.ogg-d1958078f02a7f98b70913342837de9f.oggstr"
+
+[deps]
+
+source_file="res://data/sounds/pistol3.ogg"
+dest_files=[ "res://.import/pistol3.ogg-d1958078f02a7f98b70913342837de9f.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
