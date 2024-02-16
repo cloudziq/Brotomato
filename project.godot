@@ -13,6 +13,7 @@ config_version=4
 config/name="Brotomato"
 config/description="Brotomato"
 run/main_scene="res://SYST.tscn"
+run/delta_sync_after_draw=true
 boot_splash/image="res://icon.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.00784314, 0.0117647, 0.101961, 1 )
@@ -103,8 +104,8 @@ kill_all={
 
 [physics]
 
-common/physics_fps=90
 common/enable_pause_aware_picking=true
+3d/physics_engine="Bullet"
 2d/default_gravity=0
 2d/default_gravity_vector=Vector2( 0, 0 )
 common/physics_interpolation=true

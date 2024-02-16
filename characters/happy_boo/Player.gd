@@ -16,11 +16,15 @@ signal health_depleted
 
 var velocity   := Vector2.ZERO
 var level      := 0
-var experience  = 0.0
-var exp_needed  = 10.0
+var experience := 0.0
+var exp_needed := 4
 
 
 onready var level_up_sound := $"../../Sounds/LevelUp"
+onready var melee_sound    := $"../../Sounds/Melee"
+
+
+
 
 
 
@@ -36,7 +40,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var direction  = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity       = direction * SPEED
-	velocity       = move_and_slide(velocity)
+	velocity       = move_and_slide(velocity)#, Vector2.ZERO, false, 20)
 
 	$body/torso/face.rotation_degrees += 2 * delta
 
@@ -53,8 +57,12 @@ func _physics_process(delta: float) -> void:
 
 func melee_action(body:Node2D, delta:float) -> void:
 		HEALTH -= max(0.2, body.MELEE / STAMINA * delta * 100)
-		body.take_damage(max(0.2, (MELEE / body.STAMINA) * delta * 100))
+		body.take_damage(max(0.2, (MELEE / body.STAMINA) * delta * 100), true)
 		body.pushback(true)
+
+		level_up_sound.stream  = load("res://data/sounds/melee.wav")
+		level_up_sound.pitch_scale  = 1 + rand_range(-.1, .1)
+		level_up_sound.play()
 
 		if HEALTH <= 0:
 			HEALTH = 100
@@ -66,17 +74,18 @@ func melee_action(body:Node2D, delta:float) -> void:
 
 
 
+
 func level_up(a:=0.0) -> void:
 	if level != 0:
 		a    = INT * .1
-		exp_needed += int(experience * 1.25)
+		exp_needed += (4 * level) + 2
 
 		HEALTH  += a
-		SPEED   += a
+		SPEED   += a * .008
 		ATTACK  += a
 		STAMINA += a
 		MELEE   += a
-		INT     += a
+		INT     += a * 0.1
 		LUCK    += a
 
 		var path     = "res://data/sounds/level_up.wav"

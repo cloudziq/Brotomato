@@ -7,7 +7,7 @@
 [ext_resource path="res://characters/slime/slime-hurt_eyes.png" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 42.5735
+radius = 45.0
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -243,6 +243,7 @@ tracks/2/keys = {
 
 [node name="Mob" type="KinematicBody2D" groups=["Mob"]]
 scale = Vector2( 0.4, 0.4 )
+z_index = 1
 collision_layer = 16
 collision_mask = 0
 script = ExtResource( 2 )
@@ -278,3 +279,8 @@ anims/RESET = SubResource( 2 )
 anims/move = SubResource( 3 )
 anims/stun_in = SubResource( 4 )
 anims/stun_out = SubResource( 5 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+visible = false
+position = Vector2( 8.75, -38.75 )
+scale = Vector2( 18.625, 17.125 )

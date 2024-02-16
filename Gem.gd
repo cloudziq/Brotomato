@@ -1,18 +1,32 @@
 extends Area2D
 
 
-onready var node  = $"../../Sounds/Collect"
+onready var node  = $"../Sounds/Collect"
 
 
 var value : int
-# Declare member variables here. Examples:
-# var a: int = 2wd
-# var b: String = "text"
 
 
-# Called when the node enters the scene tree for the first time.
-#func _physics_process(delta: float) -> void:
-#	get_overlapping_bodies()
+
+
+
+
+func _ready() -> void:
+	animate()
+
+
+
+
+
+
+func animate() -> void:
+	var tween  = self.create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	tween.tween_property($sprite, "rotation_degrees", randi()%360, 1)
+	tween.tween_callback(self, "animate")
+
+
+
+
 
 
 func _on_body_entered(body: Node) -> void:
@@ -20,8 +34,7 @@ func _on_body_entered(body: Node) -> void:
 		body.experience += value
 		body.exp_print()
 
-		var path     = "res://data/sounds/gem_collect.wav"
-		node.stream  = load(path)
+		node.stream  = load("res://data/sounds/gem_collect.wav")
 		node.pitch_scale  = 1 + rand_range(-.1, .1)
 		node.play()
 		queue_free()

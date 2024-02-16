@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Skunk-High.mp3-8bb7b18feab7ee58eec743c8252a750c.mp3str"
+
+[deps]
+
+source_file="res://data/music/Skunk-High.mp3"
+dest_files=[ "res://.import/Skunk-High.mp3-8bb7b18feab7ee58eec743c8252a750c.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

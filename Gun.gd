@@ -1,21 +1,34 @@
 extends Area2D
 
 
-var BULLET = preload("res://Bullet.tscn")
+onready var BULLET  = preload("res://Bullet.tscn")
+onready var player  = get_parent()
+#onready var weapon  = get_parent().get_node("Pistol")
 
 
 
 
 
-func _physics_process(_delta:float) -> void:
-	var enemies  = get_overlapping_bodies()
+func _physics_process(delta:float) -> void:
+	var enemies    := get_overlapping_bodies()
+	var closest    := 99999999.0
+	var dist       :  float
+	var enemy      :  int
+	var rot        :  float
+	var rot_speed  :  float  = player.SPEED * .06
 
 	if enemies.size() > 0:
-		var target = enemies.front()
-		$"%Pistol".look_at(target.global_position)
+		for i in enemies.size():
+			dist  = player.global_position.distance_squared_to(enemies[i].global_position)
+			if dist < closest:
+				closest  = dist
+				enemy    = i
+		rot  = $"%pivot".global_position.direction_to(enemies[enemy].global_position).angle()
+		$"%pivot".rotation  = lerp_angle($"%pivot".rotation, rot , rot_speed * delta)
+		#### activate a weapon:
 		if $WeaponTimer.is_stopped():
-			shoot()
 			$WeaponTimer.start(-1)
+			shoot()
 	else:
 		$WeaponTimer.stop()
 
@@ -24,13 +37,12 @@ func _physics_process(_delta:float) -> void:
 
 
 func shoot() -> void:
-	var bullet = BULLET.instance()
+	var bullet : Area2D = BULLET.instance()
 	bullet.global_position  = $"%Muzzle".global_position
 	bullet.global_rotation  = $"%Muzzle".global_rotation
 	bullet.DAMAGE          += $"../../Player".ATTACK
 	bullet.SPEED           += $"../../Player".SPEED * .1
 	$"/root/SYST/Level".add_child(bullet)
-
 
 
 
