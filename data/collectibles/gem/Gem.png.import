@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/square_foot.png-62023e9ce7985c4b370739df29445354.stex"
+path="res://.import/Gem.png-db3bf19919776216cc1e8844487246fa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://characters/happy_boo/square_foot.png"
-dest_files=[ "res://.import/square_foot.png-62023e9ce7985c4b370739df29445354.stex" ]
+source_file="res://data/collectibles/gem/Gem.png"
+dest_files=[ "res://.import/Gem.png-db3bf19919776216cc1e8844487246fa.stex" ]
 
 [params]
 

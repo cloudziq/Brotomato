@@ -15,7 +15,7 @@ func _physics_process(delta:float) -> void:
 	var dist       :  float
 	var enemy      :  int
 	var rot        :  float
-	var rot_speed  :  float  = player.SPEED * .06
+	var rot_speed  :  float  = player.SPEED * .02
 
 	if enemies.size() > 0:
 		for i in enemies.size():
@@ -28,7 +28,7 @@ func _physics_process(delta:float) -> void:
 		#### activate a weapon:
 		if $WeaponTimer.is_stopped():
 			$WeaponTimer.start(-1)
-			shoot()
+#			shoot()
 	else:
 		$WeaponTimer.stop()
 

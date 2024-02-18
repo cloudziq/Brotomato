@@ -15,6 +15,7 @@ func _ready() -> void:
 	$"/root/SYST/Level/Draw/Player/HealthBar".value  = 100
 	$Sounds/MapMusic.play()
 	for i in 10:
+		yield(get_tree().create_timer(0.04 * i), "timeout")
 		spawn_mob()
 
 
@@ -76,6 +77,6 @@ func _on_Timer_finish() -> void:
 
 
 
-func _on_MobVisArea_body_exited(_a:RID, body:Node, _c:int, _d:int) -> void:
-	if body:
+func _on_MobVisArea_body_exited(_a:RID, body:KinematicBody2D, _c:int, _d:int) -> void:
+	if body and body.get_collision_layer_bit(4):
 		body.global_position  = new_position()

@@ -11,6 +11,7 @@ export var LUCK    := 4.0
 
 
 
+
 signal health_depleted
 
 
@@ -40,11 +41,9 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var direction  = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity       = direction * SPEED
-	velocity       = move_and_slide(velocity)#, Vector2.ZERO, false, 20)
+	velocity       = move_and_slide(velocity)
 
-	$body/torso/face.rotation_degrees += 2 * delta
-
-	for body in $"%hurtbox".get_overlapping_bodies():
+	for body in $"%HurtArea".get_overlapping_bodies():
 		melee_action(body, delta)
 
 	if experience >= exp_needed:
@@ -81,11 +80,11 @@ func level_up(a:=0.0) -> void:
 		exp_needed += (4 * level) + 2
 
 		HEALTH  += a
-		SPEED   += a * .008
+		SPEED   += a * .018
 		ATTACK  += a
 		STAMINA += a
 		MELEE   += a
-		INT     += a * 0.1
+		INT     += a * .104
 		LUCK    += a
 
 		var path     = "res://data/sounds/level_up.wav"

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/square_face.png-e27720ce35d82859f41580927c22ef18.stex"
+path="res://.import/eye_R.png-0a97de2f0b154ecff86cbd49d97f9cf1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://characters/happy_boo/square_face.png"
-dest_files=[ "res://.import/square_face.png-e27720ce35d82859f41580927c22ef18.stex" ]
+source_file="res://data/characters/player/eye_R.png"
+dest_files=[ "res://.import/eye_R.png-0a97de2f0b154ecff86cbd49d97f9cf1.stex" ]
 
 [params]
 
