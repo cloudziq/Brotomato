@@ -1,10 +1,11 @@
 extends Node2D
 
 
-var MOB := preload("res://Mob.tscn")
-
 var kill_count       :  int
 var time_counter     := 0
+
+
+onready var MOB  := preload("res://data/characters/mobs/Slime/Slime.tscn")
 
 
 
@@ -24,8 +25,15 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action("kill_all"):
-		get_tree().call_group("Mob", "queue_free")
+	if event.is_action_pressed("kill_all"):
+		$MobTimer.wait_time *= 1.5
+
+		for n in get_tree().get_nodes_in_group("Mob"):
+#			if n.get_node_or_null("move"):
+#				n.get_node("move").set_physics_process(false)
+			n.kill()
+			kill_count += 1
+
 
 
 

@@ -8,6 +8,34 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://data/characters/player/Player.gd"
+}, {
+"base": "Node2D",
+"class": "damage",
+"language": "GDScript",
+"path": "res://data/classes/damage.gd"
+}, {
+"base": "Node2D",
+"class": "drop",
+"language": "GDScript",
+"path": "res://data/classes/drop.gd"
+}, {
+"base": "Node2D",
+"class": "mob_move",
+"language": "GDScript",
+"path": "res://data/classes/move.gd"
+} ]
+_global_script_class_icons={
+"Player": "",
+"damage": "",
+"drop": "",
+"mob_move": ""
+}
+
 [application]
 
 config/name="Brotomato"

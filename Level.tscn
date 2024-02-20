@@ -6,7 +6,7 @@
 [ext_resource path="res://Level.gd" type="Script" id=4]
 [ext_resource path="res://data/maps/map0001.tscn" type="PackedScene" id=5]
 [ext_resource path="res://fonts/Vellyc.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://data/music/Riverside Ride Long Loop.wav" type="AudioStream" id=7]
+[ext_resource path="res://data/music/Skunk-High.ogg" type="AudioStream" id=7]
 
 [sub_resource type="DynamicFont" id=2]
 size = 64
@@ -16,12 +16,12 @@ use_filter = true
 font_data = ExtResource( 6 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 987.458, 1765 )
+extents = Vector2( 926.737, 1765 )
 
 [sub_resource type="Curve2D" id=1]
 bake_interval = 10.0
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, -828, -1594, 0, 0, 0, 0, -824, 1604, 0, 0, 0, 0, 822, 1608, 0, 0, 0, 0, 822, -1594, 0, 0, 0, 0, -824, -1590 )
+"points": PoolVector2Array( 0, 0, 0, 0, -760, -1518, 0, 0, 0, 0, -754, 1520, 0, 0, 0, 0, 758, 1526, 0, 0, 0, 0, 750, -1516, 0, 0, 0, 0, -760, -1516 )
 }
 
 [node name="Level" type="Node2D"]
@@ -55,6 +55,18 @@ custom_fonts/font = SubResource( 2 )
 text = "TIME: 0"
 align = 2
 
+[node name="LevelLabel" type="Label" parent="UI"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 44.0
+margin_bottom = -64.0
+rect_scale = Vector2( 0.4, 0.4 )
+custom_colors/font_color = Color( 0.776471, 0.87451, 0.945098, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "LEVEL: 1"
+
 [node name="Draw" type="YSort" parent="."]
 unique_name_in_owner = true
 
@@ -76,7 +88,8 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Draw/Player/MobVisArea"]
 self_modulate = Color( 0.184314, 0.192157, 0.14902, 0.607843 )
-position = Vector2( -1, 5 )
+position = Vector2( -7.99997, 5 )
+scale = Vector2( 0.904948, 0.910351 )
 shape = SubResource( 3 )
 
 [node name="EnemySpawn" type="Path2D" parent="Draw/Player"]
@@ -85,8 +98,8 @@ curve = SubResource( 1 )
 
 [node name="Spawn" type="PathFollow2D" parent="Draw/Player/EnemySpawn"]
 unique_name_in_owner = true
-position = Vector2( -828, -1594 )
-rotation = 1.56956
+position = Vector2( -760, -1518 )
+rotation = 1.56881
 
 [node name="Trees" type="Node2D" parent="Draw"]
 
@@ -130,6 +143,7 @@ position = Vector2( 1998, 1948 )
 
 [node name="Tree29" parent="Draw/Trees" instance=ExtResource( 2 )]
 position = Vector2( 2083, -1514 )
+scale = Vector2( 1.86, 2.24 )
 
 [node name="Tree3" parent="Draw/Trees" instance=ExtResource( 2 )]
 position = Vector2( 724, 117 )
@@ -210,6 +224,7 @@ position = Vector2( -902, 1130 )
 
 [node name="Tree30" parent="Draw/Trees" instance=ExtResource( 2 )]
 position = Vector2( -1735, 1733 )
+scale = Vector2( 2.26, 2.08 )
 
 [node name="Tree22" parent="Draw/Trees" instance=ExtResource( 2 )]
 position = Vector2( -1203, 554 )
@@ -370,7 +385,7 @@ autostart = true
 
 [node name="MapMusic" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 7 )
-volume_db = -28.0
+volume_db = -32.0
 
 [node name="Shoot" type="AudioStreamPlayer" parent="Sounds"]
 volume_db = -28.0

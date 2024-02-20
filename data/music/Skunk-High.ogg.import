@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Skunk-High.ogg-4307599408880ab1e1528ae51e8c2038.oggstr"
+
+[deps]
+
+source_file="res://data/music/Skunk-High.ogg"
+dest_files=[ "res://.import/Skunk-High.ogg-4307599408880ab1e1528ae51e8c2038.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

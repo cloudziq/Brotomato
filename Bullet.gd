@@ -3,7 +3,7 @@ extends Area2D
 
 export var SPEED  := 400.0
 export var RANGE  := 2400
-export var DAMAGE := 6.0
+export var DAMAGE := 8
 
 
 var traveled_distance := 0.0
@@ -39,6 +39,6 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node) -> void:
 	queue_free()
 
-	if body.has_method("take_damage"):
-		body.take_damage(DAMAGE)
+	if body.has_node("damage"):
+		body.get_node("damage").take_damage(DAMAGE)
 		body.pushback(false)

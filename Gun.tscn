@@ -19,7 +19,6 @@ shape = SubResource( 1 )
 
 [node name="pivot" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2( 0, -80 )
 
 [node name="Sprite" type="Sprite" parent="pivot"]
 position = Vector2( 116, 2 )
@@ -30,5 +29,6 @@ unique_name_in_owner = true
 position = Vector2( 26, -12 )
 
 [node name="WeaponTimer" type="Timer" parent="."]
+one_shot = true
 
-[connection signal="timeout" from="WeaponTimer" to="." method="_shoot_delay_end"]
+[connection signal="timeout" from="WeaponTimer" to="." method="_shoot"]
