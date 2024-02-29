@@ -9,9 +9,11 @@ extends Node2D
 
 
 export var small_screen  := false
-export var game_duration := 60
+export var game_duration := 30
 
-var mob_timer_reduce_per_sec  = 2 / float(game_duration)
+
+onready var mob_timer_reduce_per_sec := 2.2 / game_duration
+
 
 
 
@@ -23,7 +25,6 @@ func _ready() -> void:
 	var LEVEL  = preload("res://Level.tscn").instance()
 	add_child(LEVEL)
 	window_prepare()
-#	print(mob_timer_reduce_per_sec)
 
 
 

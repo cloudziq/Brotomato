@@ -3,7 +3,7 @@ extends Camera2D
 
 export var zoom_step  := 0.12
 export var max_zoom   := 1.64
-export var min_zoom   := .4
+export var min_zoom   := .2
 
 
 var target_zoom          := Vector2(1,1)

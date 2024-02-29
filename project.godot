@@ -15,14 +15,19 @@ _global_script_classes=[ {
 "path": "res://data/characters/player/Player.gd"
 }, {
 "base": "Node2D",
-"class": "damage",
+"class": "attack",
 "language": "GDScript",
-"path": "res://data/classes/damage.gd"
+"path": "res://data/classes/attack.gd"
 }, {
 "base": "Node2D",
 "class": "drop",
 "language": "GDScript",
 "path": "res://data/classes/drop.gd"
+}, {
+"base": "Node2D",
+"class": "health",
+"language": "GDScript",
+"path": "res://data/classes/health.gd"
 }, {
 "base": "Node2D",
 "class": "mob_move",
@@ -31,8 +36,9 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Player": "",
-"damage": "",
+"attack": "",
 "drop": "",
+"health": "",
 "mob_move": ""
 }
 
@@ -54,6 +60,10 @@ channel_disable_time=1.0
 [autoload]
 
 G="*res://Globals.gd"
+
+[debug]
+
+gdscript/warnings/return_value_discarded=false
 
 [display]
 

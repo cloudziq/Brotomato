@@ -6,7 +6,7 @@ class_name Player
 export var HEALTH  := 100.0
 export var SPEED   := 22.0
 export var ATTACK  := 2.0
-export var STAMINA := 8.0
+export var STAMINA := 10.0
 export var MELEE   := 4.0
 export var INT     := 10.0
 export var LUCK    := 4.0
@@ -21,6 +21,7 @@ var velocity   := Vector2.ZERO
 var level      := 0
 var experience := 0.0
 var exp_needed := 4
+var is_moving  := false
 
 
 onready var level_up_sound := $"../../Sounds/LevelUp"
@@ -45,6 +46,9 @@ func _physics_process(delta: float) -> void:
 	velocity       = direction * SPEED * 10
 	velocity       = move_and_slide(velocity)
 
+	print(direction)
+	is_moving  = true if abs(direction.x) + abs(direction.y) != 0 else false
+
 	for body in $"%HurtArea".get_overlapping_bodies():
 		melee_action(body, delta)
 
@@ -55,13 +59,9 @@ func _physics_process(delta: float) -> void:
 
 
 
-
 func melee_action(body:Node2D, delta:float) -> void:
-		HEALTH -= max(0.2, body.MELEE / STAMINA * delta * 100)
-
-		melee_sound.stream  = load("res://data/sounds/melee.wav")
-		melee_sound.pitch_scale  = 1 + rand_range(-.1, .1)
-		melee_sound.play()
+	if body.has_node("attack"):
+		HEALTH -= max(0.2, body.get_node("attack").MELEE / STAMINA * delta * 100)
 
 		if HEALTH <= 0:
 			HEALTH = 100
@@ -69,11 +69,16 @@ func melee_action(body:Node2D, delta:float) -> void:
 			emit_signal("health_depleted")
 		$"%HealthBar".value  = HEALTH
 
-		if body.has_node("damage"):
-			var node   := body.get_node("damage")
-			var damage := max(0.2, (MELEE / node.STAMINA) * delta * 100)
-			node.take_damage(damage, true)
-		body.pushback(true, MELEE)
+
+	if body.has_node("health"):
+		var node   := body.get_node("health")
+		var damage := max(0.2, (MELEE / node.STAMINA) * delta * 100)
+		node.take_damage(damage, true)
+	body.pushback(true, MELEE)
+
+	melee_sound.stream  = load("res://data/sounds/melee.wav")
+	melee_sound.pitch_scale  = 1 + rand_range(-.1, .1)
+	melee_sound.play()
 
 
 
@@ -81,6 +86,8 @@ func melee_action(body:Node2D, delta:float) -> void:
 
 
 func level_up(a:=0.0) -> void:
+	var node  : Timer
+
 	if level != 0:
 		a    = INT * .1
 		exp_needed += (4 * level) + 2
@@ -93,14 +100,14 @@ func level_up(a:=0.0) -> void:
 		INT     += a * .104
 		LUCK    += a * .020
 
-		var node  := $Gun/WeaponTimer
-		if node.wait_time > 0.06:
-			node.wait_time -= SPEED * 0.0001
+		for i in get_tree().get_nodes_in_group("gun"):
+			node  = i.get_node("Timer")
+			if node.wait_time > 0.06:
+				node.wait_time -= SPEED * 0.0001
 
 		$CollectArea/CollectCollider.shape.radius += a * 0.64
 
-		var path     = "res://data/sounds/level_up.wav"
-		level_up_sound.stream  = load(path)
+		level_up_sound.stream       = load("res://data/sounds/level_up.wav")
 		level_up_sound.pitch_scale  = 1 + rand_range(-.1, .1)
 		level_up_sound.play()
 

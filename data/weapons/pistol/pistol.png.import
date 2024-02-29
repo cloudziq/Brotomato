@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/muzzle_flash.png-752b19c1a1a60c24eac6f205d487f2ea.stex"
+path="res://.import/pistol.png-b6dc12d870662ad483b3b89bef36728f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pistol/muzzle_flash/muzzle_flash.png"
-dest_files=[ "res://.import/muzzle_flash.png-752b19c1a1a60c24eac6f205d487f2ea.stex" ]
+source_file="res://data/weapons/pistol/pistol.png"
+dest_files=[ "res://.import/pistol.png-b6dc12d870662ad483b3b89bef36728f.stex" ]
 
 [params]
 

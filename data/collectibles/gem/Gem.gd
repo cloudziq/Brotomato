@@ -21,6 +21,7 @@ var value : int
 
 
 func _ready() -> void:
+	$Sprite.scale  = Vector2(.56, .56)
 	animate()
 
 
@@ -56,7 +57,8 @@ func animate() -> void:
 
 
 func collect() -> void:
-	player.experience += value
+	player.experience      += value
+	$"../UI/ExpLabel".text  = "EXP: "+str(player.experience)+" / "+str(player.exp_needed)
 
 	$Particles.emitting  = true
 
@@ -64,7 +66,7 @@ func collect() -> void:
 	gem_collect_sound.pitch_scale  = 1 + rand_range(-.1, .1)
 	gem_collect_sound.play()
 	set_collision_mask_bit(0, false)
-	$Sprite.modulate  =lerp(Color(1,1,1,1), Color(1,1,1,0), 1)
+	$Sprite.modulate  = lerp(Color(1,1,1,1), Color(1,1,1,0), 1)
 	yield(get_tree().create_timer(1.1), "timeout")
 	queue_free()
 

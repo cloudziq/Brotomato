@@ -67,12 +67,25 @@ custom_colors/font_color = Color( 0.776471, 0.87451, 0.945098, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "LEVEL: 1"
 
+[node name="ExpLabel" type="Label" parent="UI"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 280.0
+margin_top = 44.0
+margin_right = 530.0
+margin_bottom = -64.0
+rect_scale = Vector2( 0.4, 0.4 )
+custom_colors/font_color = Color( 0.776471, 0.87451, 0.945098, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "EXP: 0"
+
 [node name="Draw" type="YSort" parent="."]
 unique_name_in_owner = true
 
 [node name="Player" parent="Draw" instance=ExtResource( 1 )]
 unique_name_in_owner = true
-position = Vector2( -245, 322 )
+position = Vector2( -2122, -2046 )
 collision_mask = 16
 
 [node name="Camera" type="Camera2D" parent="Draw/Player"]
@@ -366,17 +379,18 @@ scale = Vector2( 0.5, 0.5 )
 
 [node name="FloorLayer" type="CanvasLayer" parent="."]
 layer = -1
+visible = false
 
 [node name="BG" type="ColorRect" parent="FloorLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.133333, 0.286275, 0.145098, 1 )
 
-[node name="Timer" type="Timer" parent="."]
+[node name="GeneralTimer" type="Timer" parent="."]
 autostart = true
 
 [node name="MobTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 2.2
 autostart = true
 
 [node name="map" parent="." instance=ExtResource( 5 )]
@@ -405,5 +419,5 @@ process_priority = -1
 volume_db = -6.0
 
 [connection signal="body_shape_exited" from="Draw/Player/MobVisArea" to="." method="_on_MobVisArea_body_exited"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_finish"]
+[connection signal="timeout" from="GeneralTimer" to="." method="_on_GeneralTimer_finish"]
 [connection signal="timeout" from="MobTimer" to="." method="spawn_mob"]
