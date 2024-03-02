@@ -22,7 +22,7 @@ var mob_data := [
 func _ready() -> void:
 	$"/root/SYST/Level/Draw/Player/HealthBar".value  = 100
 #	$Sounds/MapMusic.play()
-	for i in 2:
+	for i in 20:
 		yield(get_tree().create_timer(0.06 * i), "timeout")
 		spawn_mob()
 
@@ -33,7 +33,8 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("kill_all"):
-		$MobTimer.wait_time *= 1.5
+		if $MobTimer.wait_time > 2:
+			$MobTimer.wait_time *= 1.5
 
 		for n in get_tree().get_nodes_in_group("Mob"):
 			n.get_node("health").kill()
@@ -87,7 +88,7 @@ func _on_GeneralTimer_finish() -> void:
 		if i < .06:
 			i  = .06
 		$MobTimer.wait_time  = i
-		print("Mob Timer: "+str($MobTimer.wait_time))
+#		print("Mob Timer: "+str($MobTimer.wait_time))
 
 
 

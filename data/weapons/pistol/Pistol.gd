@@ -5,13 +5,17 @@ onready var BULLET := preload("res://data/projectiles/standard/Bullet_1_1.tscn")
 onready var player := get_parent()
 
 
-export var ROT_SPEED   := 80
+export var ROT_SPEED   := 220
 export var SHOOT_DELAY := 1
+export var DAMAGE_MOD  := .6
+export var WALK_MOD    := .2
 
 
-var allow_new_target := true
+var timer_diff       := 0.0
+#var ROT_MOD          := 0.0
 var enemies		     :  Array
 var target_enemy     :  int
+var allow_new_target := true
 
 
 
@@ -26,11 +30,12 @@ func _ready() -> void:
 
 
 
+
 func _physics_process(delta:float) -> void:
 	if allow_new_target:
 		change_target()
 
-	if enemies:
+	if enemies and target_enemy < enemies.size():
 		var dest       :  Vector2  = enemies[target_enemy].global_position
 		var dir        :  Vector2  = $"%pivot".global_position - dest
 		var angle      := polar2cartesian(1.0, $"%pivot".rotation)
@@ -38,7 +43,7 @@ func _physics_process(delta:float) -> void:
 		var dot        := getDot(dir, angle)
 
 		if abs(difference) > 0.1:
-			$"%pivot".rotation += sign(dot) * deg2rad(ROT_SPEED) * delta
+			$"%pivot".rotation += sign(dot)*deg2rad(ROT_SPEED)*delta*player.SPEED*.08
 
 
 
@@ -47,7 +52,7 @@ func _physics_process(delta:float) -> void:
 
 func change_target() -> void:
 	var node    := Sprite
-	var closest := 99999999.0
+	var closest := 999999.0
 	var dist    :  float
 	enemies      = get_overlapping_bodies()
 
@@ -60,7 +65,8 @@ func change_target() -> void:
 				target_enemy  = i
 		if $Timer.is_stopped():
 			$Timer.start()
-		allow_new_target  = false
+
+			allow_new_target  = false
 	else:
 		$Timer.stop()
 
@@ -85,9 +91,14 @@ func _shoot() -> void:
 	var bullet : Area2D = BULLET.instance()
 	bullet.global_position  = $"%Muzzle".global_position
 	bullet.global_rotation  = $"%Muzzle".global_rotation
-	bullet.DAMAGE          += $"../../Player".ATTACK
-	bullet.SPEED           += $"../../Player".SPEED * .1
-	$"/root/SYST/Level".add_child(bullet)
+#	bullet.modulate         = Color(.8, 4, 10, 1)
+#	bullet.scale           *= 1
+	bullet.DAMAGE          += player.ATTACK
+	bullet.SPEED           += player.SPEED * .1
+	bullet.player_weapon    = self
+
+	allow_new_target        = true
+	$"%Flash".emitting      = true
+
+	$"/root/SYST/Level/Draw".add_child(bullet)
 	$Timer.start()
-	$"%Flash".emitting  = true
-	allow_new_target    = true

@@ -239,7 +239,7 @@ anims/move = SubResource( 3 )
 HEALTH = 12.0
 
 [node name="move" parent="." instance=ExtResource( 5 )]
-MOVE_SPEED = 22.0
+MOVE_SPEED = 100.0
 
 [node name="drop" parent="." instance=ExtResource( 7 )]
 EXP = 100

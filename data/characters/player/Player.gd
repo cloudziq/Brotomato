@@ -46,7 +46,6 @@ func _physics_process(delta: float) -> void:
 	velocity       = direction * SPEED * 10
 	velocity       = move_and_slide(velocity)
 
-	print(direction)
 	is_moving  = true if abs(direction.x) + abs(direction.y) != 0 else false
 
 	for body in $"%HurtArea".get_overlapping_bodies():
@@ -86,8 +85,6 @@ func melee_action(body:Node2D, delta:float) -> void:
 
 
 func level_up(a:=0.0) -> void:
-	var node  : Timer
-
 	if level != 0:
 		a    = INT * .1
 		exp_needed += (4 * level) + 2
@@ -101,9 +98,9 @@ func level_up(a:=0.0) -> void:
 		LUCK    += a * .020
 
 		for i in get_tree().get_nodes_in_group("gun"):
-			node  = i.get_node("Timer")
+			var node : Timer  = i.get_node("Timer")
 			if node.wait_time > 0.06:
-				node.wait_time -= SPEED * 0.0001
+				node.wait_time -= SPEED * 0.00001
 
 		$CollectArea/CollectCollider.shape.radius += a * 0.64
 

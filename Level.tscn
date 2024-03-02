@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://data/characters/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Tree.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://data/maps/map0001.tscn" type="PackedScene" id=5]
 [ext_resource path="res://fonts/Vellyc.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://data/music/Skunk-High.ogg" type="AudioStream" id=7]
+[ext_resource path="res://data/collectibles/orb/Orb.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=2]
 size = 64
@@ -23,6 +24,15 @@ bake_interval = 10.0
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, -760, -1518, 0, 0, 0, 0, -754, 1520, 0, 0, 0, 0, 758, 1526, 0, 0, 0, 0, 750, -1516, 0, 0, 0, 0, -760, -1516 )
 }
+
+[sub_resource type="Curve" id=4]
+max_value = 2.0
+bake_resolution = 20
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.497369, 1.43023 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 0, 0.443243, 0.983784, 1 )
+colors = PoolColorArray( 0, 0, 1, 0.0627451, 1, 1, 1, 0.156863, 0.837838, 0.837838, 0.837838, 0.162162, 1, 1, 1, 0 )
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 4 )
@@ -394,6 +404,30 @@ wait_time = 2.2
 autostart = true
 
 [node name="map" parent="." instance=ExtResource( 5 )]
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="OrbParticles" type="CPUParticles2D" parent="Particles"]
+self_modulate = Color( 1, 1, 1, 0.533333 )
+light_mask = 0
+emitting = false
+lifetime = 0.8
+one_shot = true
+speed_scale = 0.6
+explosiveness = 0.68
+randomness = 0.66
+texture = ExtResource( 8 )
+direction = Vector2( 0, 0 )
+spread = 180.0
+initial_velocity = 222.0
+initial_velocity_random = 1.0
+angular_velocity = 260.0
+linear_accel = 600.0
+damping = 44.0
+damping_random = 0.4
+scale_amount = 1.25
+scale_amount_curve = SubResource( 4 )
+color_ramp = SubResource( 5 )
 
 [node name="Sounds" type="Node2D" parent="."]
 

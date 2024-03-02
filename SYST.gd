@@ -22,9 +22,9 @@ onready var mob_timer_reduce_per_sec := 2.2 / game_duration
 func _ready() -> void:
 	randomize()
 #	G.load_config()
+	window_prepare()
 	var LEVEL  = preload("res://Level.tscn").instance()
 	add_child(LEVEL)
-	window_prepare()
 
 
 

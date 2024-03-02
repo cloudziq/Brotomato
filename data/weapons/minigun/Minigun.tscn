@@ -14,7 +14,7 @@ _data = [ Vector2( 0, 1.0619 ), 0.0, 0.0, 0, 0, Vector2( 1, 1.97897 ), 0.0, 0.0,
 [sub_resource type="Gradient" id=3]
 colors = PoolColorArray( 1, 1, 1, 0.694118, 1, 1, 1, 0 )
 
-[node name="Minigun" type="Area2D"]
+[node name="Minigun" type="Area2D" groups=["gun"]]
 scale = Vector2( 0.6, 0.6 )
 collision_layer = 0
 collision_mask = 16
@@ -30,7 +30,7 @@ unique_name_in_owner = true
 
 [node name="Sprite" type="Sprite" parent="pivot"]
 modulate = Color( 0, 1, 0.0313726, 1 )
-position = Vector2( 116, 2 )
+position = Vector2( 103.333, 0 )
 texture = ExtResource( 2 )
 
 [node name="Muzzle" type="Node2D" parent="pivot/Sprite"]

@@ -1,14 +1,13 @@
 extends KinematicBody2D
 
 
-onready var player  = get_node("../Player")
-#onready var gun     = player.get_node("Gun")
-onready var level   = get_node("../../../Level")
+onready var player = get_node("../Player")
+onready var tween  : SceneTreeTween
 
-
-onready var tween : SceneTreeTween
 
 var player_weapon : Area2D
+
+
 
 
 
@@ -46,7 +45,6 @@ func pushback(stun:=false, strength:=0.0) -> void:
 	if stun:
 		var delay : float = player.MELEE * ($health.STAMINA * .008)
 		$move.set_physics_process(false)
-#		$AnimPlayer.play("stun_in")
 		tween.tween_callback(self, "pushback_end").set_delay(delay)
 
 
@@ -57,7 +55,6 @@ func pushback(stun:=false, strength:=0.0) -> void:
 func pushback_end() -> void:
 	if has_node("health") and $health.HEALTH > 0:
 		$move.set_physics_process(true)
-#		$AnimPlayer.play ("stun_out")
 		$AnimPlayer.play("move")
 
 
@@ -73,4 +70,4 @@ func remove() -> void:
 	tween.set_parallel().set_trans(1).set_ease(Tween.EASE_IN)
 	tween.tween_property($Sprite, "modulate", Color(1,1,1,0), 1)
 	tween.tween_property($Sprite, "scale", Vector2(0,0), 1.2)
-	tween.chain().tween_callback(self, "queue_free")
+	tween.chain().tween_callback(self, "call_deferred", ["queue_free"])

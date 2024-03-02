@@ -70,12 +70,12 @@ texture = ExtResource( 4 )
 position = Vector2( 2, 36 )
 texture = ExtResource( 6 )
 
-[node name="Pistol" parent="." instance=ExtResource( 1 )]
-position = Vector2( -2, -56 )
-
-[node name="Neweapon" parent="." instance=ExtResource( 7 )]
+[node name="Minigun" parent="." instance=ExtResource( 7 )]
 position = Vector2( 0, -56 )
 scale = Vector2( 1, 1 )
+
+[node name="Pistol" parent="." instance=ExtResource( 1 )]
+position = Vector2( -2, -56 )
 
 [node name="HurtArea" type="Area2D" parent="."]
 unique_name_in_owner = true
