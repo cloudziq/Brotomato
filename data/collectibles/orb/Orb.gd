@@ -42,10 +42,10 @@ func _physics_process(delta: float) -> void:
 		if attract_speed < attract_speed_max:
 			attract_speed += player.level * .004 * delta
 
-		if dist < 27:
+		if dist < 25:
 			collect()
 
-	wiggle_mod  = .6 if $"%TouchArea".get_overlapping_areas().size() > 0 else 1.0
+	wiggle_mod  = .48 if $"%TouchArea".get_overlapping_areas().size() > 0 else 1.0
 
 
 
@@ -65,7 +65,7 @@ func animate() -> void:
 
 func anim_pos() -> void:
 	var mod   :  float  = (wiggle_mod * .06) if wiggle_mod > 1 else 1.0
-	var dist  := 60 * wiggle_mod
+	var dist  := 44 * wiggle_mod
 	var x     := rand_range(-dist, dist)
 	var y     := rand_range(-dist, dist)
 	var pos   := Vector2(x, y)

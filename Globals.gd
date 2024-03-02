@@ -1,6 +1,11 @@
 extends Node
 
 
+var active_mob_count : int
+
+
+
+
 
 
 var window := Vector2(
@@ -9,7 +14,11 @@ var window := Vector2(
 	)
 
 
-var save_version  = 12
+
+
+
+
+var revision  = 1
 var CONFIG
 var config_path
 
@@ -37,7 +46,7 @@ func save_config():
 #	var key = password.sha256_buffer()
 	var config = ConfigFile.new()
 
-	config.set_value("config", "save_version", save_version)
+	config.set_value("config", "save_version", revision)
 	config.set_value("config", "settings", CONFIG)
 
 	config.save(config_path)
@@ -65,7 +74,7 @@ func load_config():
 	if check != OK:
 		set_defaults()
 	else:
-		if config.get_value("config", "save_version") == save_version:
+		if config.get_value("config", "save_version") == revision:
 			CONFIG = config.get_value("config", "settings")
 		else:
 			set_defaults()

@@ -229,6 +229,7 @@ scale = Vector2( 1.04, 1 )
 shape = SubResource( 1 )
 
 [node name="AnimPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 anims/RESET = SubResource( 2 )
 anims/death = SubResource( 4 )
 anims/move = SubResource( 3 )

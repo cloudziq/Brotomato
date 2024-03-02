@@ -13,10 +13,11 @@ var player_weapon : Area2D
 
 
 func _ready() -> void:
+	G.active_mob_count += 1
 	scale  *= rand_range(.94, 1.06)
-	$Sprite.self_modulate.r *= rand_range(.9, 1)
-	$Sprite.self_modulate.g *= rand_range(.9, 1)
-	$Sprite.self_modulate.b *= rand_range(.9, 1)
+	$Sprite.self_modulate.r *= rand_range(.9, 1.1)
+	$Sprite.self_modulate.g *= rand_range(.9, 1.1)
+	$Sprite.self_modulate.b *= rand_range(.9, 1.1)
 	$AnimPlayer.play("move")
 
 
@@ -29,13 +30,11 @@ func pushback(stun:=false, strength:=0.0) -> void:
 	var trans : int
 
 	if strength > 0:
-		time   = .6
-		trans  = 0
+		time  = .6    ;    trans  = 0
 	else:
-		time   = .2
-		trans  = 1
+		time  = .2    ;    trans  = 1    ;    strength  = 1
 
-	if strength == 0:  strength  = 1
+#	if strength == 0:  strength  = 1    # correction for bullets
 	strength *= 2 if has_node("health") and $health.HEALTH > 0 else 4
 
 	tween  = get_tree().create_tween().set_trans(trans)
@@ -71,3 +70,5 @@ func remove() -> void:
 	tween.tween_property($Sprite, "modulate", Color(1,1,1,0), 1)
 	tween.tween_property($Sprite, "scale", Vector2(0,0), 1.2)
 	tween.chain().tween_callback(self, "call_deferred", ["queue_free"])
+
+	G.active_mob_count -= 1

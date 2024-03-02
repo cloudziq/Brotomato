@@ -46,6 +46,6 @@ func kill() -> void:
 		$"../move".set_physics_process(false)
 
 	get_parent().set_collision_layer_bit(4, false)
-	$"../AnimPlayer".play("death")
+	$"%AnimPlayer".play("death")
 	yield(create_tween().tween_interval(.4), "finished")
 	get_parent().remove()

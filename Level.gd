@@ -46,15 +46,16 @@ func _input(event: InputEvent) -> void:
 
 
 func spawn_mob() -> void:
-	if current_mob < mob_data.size()-1:
-		var val : float  = get_parent().game_duration * (mob_data[current_mob+1][3] * .01)
-		if time_counter > val:
-			current_mob += 1
+	if G.active_mob_count < 250:
+		if current_mob < mob_data.size()-1:
+			var val : float  = get_parent().game_duration * (mob_data[current_mob+1][3] * .01)
+			if time_counter > val:
+				current_mob += 1
 
-	var new_mob              = MOB .instance()
-	new_mob.global_position  = new_position()
-	new_mob.modulate         = Color(mob_data[current_mob][2])
-	$"%Draw".add_child(new_mob)
+		var new_mob              = MOB .instance()
+		new_mob.global_position  = new_position()
+		new_mob.modulate         = Color(mob_data[current_mob][2])
+		$"%Draw".add_child(new_mob)
 
 
 

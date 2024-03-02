@@ -5,14 +5,14 @@ onready var BULLET := preload("res://data/projectiles/standard/Bullet_1_1.tscn")
 onready var player := get_parent()
 
 
-export var ROT_SPEED   := 220
+export var ROT_SPEED   := 160
 export var SHOOT_DELAY := 1
-export var DAMAGE_MOD  := .6
-export var WALK_MOD    := .2
+export var DAMAGE_MOD  := 1.2
+#export var WALK_MOD    := .2
 
 
-var timer_diff       := 0.0
-#var ROT_MOD          := 0.0
+#var timer_diff       := 0.0
+var ROT_MOD          := 1.0
 var enemies		     :  Array
 var target_enemy     :  int
 var allow_new_target := true
@@ -43,7 +43,8 @@ func _physics_process(delta:float) -> void:
 		var dot        := getDot(dir, angle)
 
 		if abs(difference) > 0.1:
-			$"%pivot".rotation += sign(dot)*deg2rad(ROT_SPEED)*delta*player.SPEED*.08
+			var sum  : float  = ROT_MOD * (ROT_SPEED + (player.SPEED * player.level * .1))
+			$"%pivot".rotation += sign(dot)*deg2rad(sum)*delta
 
 
 
@@ -92,9 +93,9 @@ func _shoot() -> void:
 	bullet.global_position  = $"%Muzzle".global_position
 	bullet.global_rotation  = $"%Muzzle".global_rotation
 #	bullet.modulate         = Color(.8, 4, 10, 1)
-#	bullet.scale           *= 1
+#	bullet.scale           *= .6
 	bullet.DAMAGE          += player.ATTACK
-	bullet.SPEED           += player.SPEED * .1
+	bullet.SPEED           += player.SPEED + player.level * .12
 	bullet.player_weapon    = self
 
 	allow_new_target        = true
