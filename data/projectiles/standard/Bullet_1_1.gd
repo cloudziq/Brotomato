@@ -3,12 +3,12 @@ extends Area2D
 
 export var SPEED     := 400.0
 export var RANGE     := 2600
-export var DAMAGE    := 8
+export var DAMAGE    := 6
 export var PENETRATE := 1
 
 
 var traveled_distance := 0.0
-var player_weapon     :  Area2D
+var player_target     :  int
 
 
 
@@ -39,6 +39,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if body.has_node("health"):
-		body.get_node("health").take_damage(DAMAGE * player_weapon.DAMAGE_MOD)
+		body.get_node("health").take_damage(DAMAGE)
 	body.pushback()
 	queue_free()

@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 16.0
 
-[node name="Bullet_1_1" type="Area2D"]
+[node name="Bullet_1_1" type="Area2D" groups=["bullet"]]
 rotation = 0.0264574
 scale = Vector2( 0.4, 0.4 )
 collision_layer = 4

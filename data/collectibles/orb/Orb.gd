@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 		global_position += dir * attract_speed * delta
 
 		if attract_speed < attract_speed_max:
-			attract_speed += player.level * .004 * delta
+			attract_speed += (player.level * .02) + (player.SPEED * .01) * delta
 
 		if dist < 25:
 			collect()
@@ -97,4 +97,4 @@ func collect() -> void:
 
 
 func _on_player_enter(_a:RID, _b:Area2D, _c:int, _d:int) -> void:
-	attract_speed  = .52 * (player.INT + player.level)
+	attract_speed  = .42 * (player.INT + player.level)

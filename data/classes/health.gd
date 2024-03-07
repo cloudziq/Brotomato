@@ -7,6 +7,16 @@ export var STAMINA   := 4.0
 
 
 onready var hurt_sound  := $"/root/SYST/Level/Sounds/EnemyHurt"
+onready var mob         := get_parent()
+
+
+
+
+
+
+func update() -> void:
+	HEALTH  += mob.scale.x * max(.68, mob.wave_mod * .1)
+	STAMINA += mob.scale.x * max(.68, mob.wave_mod * .1)
 
 
 

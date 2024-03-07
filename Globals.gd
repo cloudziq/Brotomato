@@ -18,7 +18,7 @@ var window := Vector2(
 
 
 
-var revision  = 1
+var revision  = 2
 var CONFIG
 var config_path
 
@@ -27,13 +27,13 @@ func set_defaults():
 	CONFIG = {
 		"sound_vol":      1,
 		"music_vol":      0.4,
-		"theme":          1,
-		"theme_style":    1,
-		"zoom_level":     1,
-		"level":          10,
-		"tile_helper":    2,
-		"BG_color":       Color(.16, .64, .98, .8),
-		"tile_color":     Color(.22, .44, .66, .8)
+#		"theme":          1,
+#		"theme_style":    1,
+#		"zoom_level":     1,
+#		"level":          10,
+#		"tile_helper":    2,
+#		"BG_color":       Color(.16, .64, .98, .8),
+#		"tile_color":     Color(.22, .44, .66, .8)
 	}
 
 

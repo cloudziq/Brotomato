@@ -6,12 +6,13 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 34.023
 
-[node name="Gem" type="Node2D"]
+[node name="Orb" type="Node2D" groups=["orb"]]
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 unique_name_in_owner = true
 scale = Vector2( 0.4, 0.4 )
+z_index = 2
 texture = ExtResource( 2 )
 
 [node name="TouchArea" type="Area2D" parent="Sprite" groups=["collectible"]]

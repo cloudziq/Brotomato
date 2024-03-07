@@ -4,7 +4,7 @@ class_name Player
 
 #  starting stats (1-100)
 export var HEALTH  := 100.0
-export var SPEED   := 22.0
+export var SPEED   := 20.0
 export var ATTACK  := 2.0
 export var STAMINA := 10.0
 export var MELEE   := 4.0
@@ -12,9 +12,12 @@ export var INT     := 10.0
 export var LUCK    := 4.0
 
 
-
-
 signal health_depleted
+
+
+onready var level_up_sound := $"../../Sounds/LevelUp"
+onready var melee_sound    := $"../../Sounds/Melee"
+onready var level_main     := $"../../"
 
 
 var velocity   := Vector2.ZERO
@@ -24,15 +27,12 @@ var exp_needed := 4
 var is_moving  := false
 
 
-onready var level_up_sound := $"../../Sounds/LevelUp"
-onready var melee_sound    := $"../../Sounds/Melee"
-
-
 
 
 
 
 func _ready() -> void:
+	yield(get_tree().create_tween().tween_interval(.1), "finished")
 	level_up()
 	play_idle_animation()
 
@@ -99,10 +99,11 @@ func level_up(a:=0.0) -> void:
 
 		for i in get_tree().get_nodes_in_group("gun"):
 			var node : Timer  = i.get_node("Timer")
-			if node.wait_time > 0.06:
+			if node.wait_time > 0.08:
 				node.wait_time -= SPEED * 0.00001
+			i.SPEED_MOD += 0.01
 
-		$CollectArea/CollectCollider.shape.radius += a * 0.64
+		$CollectArea/CollectCollider.shape.radius += a * 0.8
 
 		level_up_sound.stream       = load("res://data/sounds/level_up.wav")
 		level_up_sound.pitch_scale  = 1 + rand_range(-.1, .1)

@@ -1,11 +1,11 @@
 extends KinematicBody2D
 
 
-onready var player = get_node("../Player")
-onready var tween  : SceneTreeTween
+onready var player  = get_node("../Player")
+onready var tween   : SceneTreeTween
 
 
-var player_weapon : Area2D
+onready var wave_mod : float  = max(1, $"../../".mob_wave_mod)
 
 
 
@@ -14,11 +14,14 @@ var player_weapon : Area2D
 
 func _ready() -> void:
 	G.active_mob_count += 1
-	scale  *= rand_range(.94, 1.06)
+	scale  *= rand_range(.94, 1.2) * max(.68, wave_mod * .1)
 	$Sprite.self_modulate.r *= rand_range(.9, 1.1)
 	$Sprite.self_modulate.g *= rand_range(.9, 1.1)
 	$Sprite.self_modulate.b *= rand_range(.9, 1.1)
-	$AnimPlayer.play("move")
+	$move.update()
+	$health.update()
+	$attack.update()
+	$drop.update()
 
 
 
@@ -34,8 +37,7 @@ func pushback(stun:=false, strength:=0.0) -> void:
 	else:
 		time  = .2    ;    trans  = 1    ;    strength  = 1
 
-#	if strength == 0:  strength  = 1    # correction for bullets
-	strength *= 2 if has_node("health") and $health.HEALTH > 0 else 4
+	strength *= 1.6 if has_node("health") and $health.HEALTH > 0 else 4.2
 
 	tween  = get_tree().create_tween().set_trans(trans)
 	tween.tween_property(self, "global_position",
@@ -62,9 +64,6 @@ func pushback_end() -> void:
 
 
 func remove() -> void:
-	if player_weapon:
-		player_weapon.allow_new_target  = true
-
 	tween  = get_tree().create_tween()
 	tween.set_parallel().set_trans(1).set_ease(Tween.EASE_IN)
 	tween.tween_property($Sprite, "modulate", Color(1,1,1,0), 1)

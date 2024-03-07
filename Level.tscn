@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://data/characters/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Tree.tscn" type="PackedScene" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://fonts/Vellyc.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://data/music/Skunk-High.ogg" type="AudioStream" id=7]
 [ext_resource path="res://data/collectibles/orb/Orb.png" type="Texture" id=8]
+[ext_resource path="res://data/textures/clouds01.png" type="Texture" id=9]
+[ext_resource path="res://data/shaders/scrolling.gdshader" type="Shader" id=10]
 
 [sub_resource type="DynamicFont" id=2]
 size = 64
@@ -15,6 +17,16 @@ outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
 use_filter = true
 font_data = ExtResource( 6 )
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 10 )
+shader_param/x_scroll = 240.0
+shader_param/y_scroll = 200.0
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 10 )
+shader_param/x_scroll = 160.0
+shader_param/y_scroll = 120.0
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 926.737, 1765 )
@@ -35,6 +47,7 @@ offsets = PoolRealArray( 0, 0.443243, 0.983784, 1 )
 colors = PoolColorArray( 0, 0, 1, 0.0627451, 1, 1, 1, 0.156863, 0.837838, 0.837838, 0.837838, 0.162162, 1, 1, 1, 0 )
 
 [node name="Level" type="Node2D"]
+process_priority = -2
 script = ExtResource( 4 )
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -90,11 +103,26 @@ custom_colors/font_color = Color( 0.776471, 0.87451, 0.945098, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "EXP: 0"
 
+[node name="Clouds1" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.101961 )
+material = SubResource( 6 )
+scale = Vector2( 8.2, 8.2 )
+z_index = 2
+texture = ExtResource( 9 )
+
+[node name="Clouds2" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.0862745 )
+material = SubResource( 7 )
+scale = Vector2( 8.2, 8.2 )
+z_index = 2
+texture = ExtResource( 9 )
+
 [node name="Draw" type="YSort" parent="."]
 unique_name_in_owner = true
 
 [node name="Player" parent="Draw" instance=ExtResource( 1 )]
 unique_name_in_owner = true
+process_priority = 2
 position = Vector2( -2122, -2046 )
 collision_mask = 16
 
@@ -386,15 +414,6 @@ scale = Vector2( 0.5, 0.5 )
 [node name="Tree72" parent="Draw/Trees" instance=ExtResource( 2 )]
 position = Vector2( -373, -437 )
 scale = Vector2( 0.5, 0.5 )
-
-[node name="FloorLayer" type="CanvasLayer" parent="."]
-layer = -1
-visible = false
-
-[node name="BG" type="ColorRect" parent="FloorLayer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.133333, 0.286275, 0.145098, 1 )
 
 [node name="GeneralTimer" type="Timer" parent="."]
 autostart = true
